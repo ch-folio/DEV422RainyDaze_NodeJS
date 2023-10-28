@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-mongoose.connect('mongodb+srv://elmiUser:Amina@cluster0.fh0dilb.mongodb.net/MarketPlace?retryWrites=true&w=majority').then(() => {
+mongoose.connect('mongodb+srv://elmiUser:Amina@cluster0.fh0dilb.mongodb.net/Ecommerce?retryWrites=true&w=majority').then(() => {
     console.log('Connected to Mongodb');
 }).catch((err) => {
     console.log(err)
