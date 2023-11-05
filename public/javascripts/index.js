@@ -1,7 +1,15 @@
 var express = require('express');
 var router = express.Router();
 const mongoose = require("mongoose");
-const productSchema = require("../ProductSchema");
+
+const productSchema = new mongoose.Schema({
+  name: String,
+  price: Number,
+  category: String,
+  size: String,
+  color: String,
+  imageUrl: String
+});
 
 const Product = mongoose.model("Product", productSchema);
 
