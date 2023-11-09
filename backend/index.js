@@ -32,7 +32,28 @@ app.use('/products', async (req, res) => {
     }
 });
 
+app.get('/search/:q', async (req, res) => {
+    try {
+        const { q } = req.params;
 
+        if (!q) {
+            return res.status(400).json({ message: 'Search query parameter (q) is required' });
+        }
+
+        const searchPattern = new RegExp(q, 'i');
+
+        const products = await Product.find({
+            $or: [
+                { name: searchPattern },
+                { category: { $in: await Category.find({ name: searchPattern }).distinct('_id') } },
+            ]
+        }).populate("category");
+
+        res.json(products);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
 app.use('/categories', async (req, res) => {
     try {
         const categories = await Category.find();
