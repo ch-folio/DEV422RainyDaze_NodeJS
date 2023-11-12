@@ -5,7 +5,7 @@ const path = require("path")
 const bodyParser = require('body-parser');
 const Product = require('./src/models/product');
 const Category = require('./src/models/category');
-
+const port = 3000;
 
 require('dotenv').config();
 
@@ -71,13 +71,14 @@ app.get('/products/:id', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
-
-
+app.post('/api/login', (req, res) => {
+    // Handle POST request here
+    console.log(req.body); // Print the POST request body to console
+    res.redirect('http://localhost:4200/dashboard/')
+  });
 
 
 app.use(express.static(path.join(__dirname, 'public')));
-
-const port = process.env.PORT
 
 app.listen(port, () => {
     console.log('Server is running on http://localhost:' + port);

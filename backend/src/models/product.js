@@ -9,7 +9,7 @@ const productSchema = new mongoose.Schema({
     price: Number,
    
     category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category' },
-    size: String,
+    size: [String],
     color: String,
     imageUrl: String
 });
