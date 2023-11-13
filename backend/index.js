@@ -53,6 +53,7 @@ app.get('/search/:q', async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
+
 });
 app.use('/categories', async (req, res) => {
     try {
@@ -72,8 +73,8 @@ app.get('/products/:id', async (req, res) => {
     }
 });
 app.post('/api/login', (req, res) => {
-    // Handle POST request here
-    console.log(req.body); // Print the POST request body to console
+    
+    console.log(req.body); 
     res.redirect('http://localhost:4200/dashboard/')
   });
 
