@@ -78,6 +78,48 @@ app.post('/api/login', (req, res) => {
     res.redirect('http://localhost:4200/dashboard/')
   });
 
+  app.post('/buy', async (req, res) => {
+    try {
+        const { items } = req.body;
+
+        if (!items || !Array.isArray(items) || items.length === 0) {
+            return res.status(400).json({ message: 'Invalid or empty items array in the request body' });
+        }
+
+
+        const cart = {
+            purchases: [],
+        };
+
+        for (const item of items) {
+            const product = await Product.findById(item.productId);
+
+            if (!product) {
+                return res.status(404).json({ message: `Product with ID ${item.productId} not found` });
+            }
+
+
+            cart.purchases.push({
+                productId: item.productId ?? product._id,
+                category: product.category.name,
+                price: product.price,
+                size: product.size,
+                color: product.color,
+                imageUrl: product.imageUrl,
+                quantity: item.quantity,
+            });
+        }
+
+        
+        const newCart = new Cart(cart);
+        await newCart.save();
+
+        res.status(200).json({ message: 'Purchase successful!', cart });
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: error.message });
+    }
+});
 
 app.use(express.static(path.join(__dirname, 'public')));
 
