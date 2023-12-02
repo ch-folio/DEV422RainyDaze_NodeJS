@@ -7,9 +7,8 @@ const port = process.env.PORT
 const productSchema = new mongoose.Schema({
     name: String,
     price: Number,
-   
     category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category' },
-    size: [String],
+    size: String,
     color: String,
     imageUrl: String
 });
