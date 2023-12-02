@@ -16,6 +16,7 @@ app.use(cors());
 mongoose.connect(process.env.MONGODB_URI, {}
 ).then(() => { console.log("Connected to the database") }).catch(e => console.log(e));
 
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
